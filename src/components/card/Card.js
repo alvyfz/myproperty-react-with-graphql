@@ -1,5 +1,6 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
 export default function CardProperty1({ name, price, img, idx, category }) {
   const formatRupiah = () => {
     return new Intl.NumberFormat("id-ID", {

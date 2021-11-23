@@ -29,7 +29,7 @@ export default function NavBar() {
         style={{ fontWeight: "600" }}
       >
         <Container>
-          <Navbar.Brand style={{ marginRight: "130px" }}>
+          <Navbar.Brand style={{ marginRight: "200px" }}>
             <Link to="/home">
               {" "}
               <Brand />{" "}
@@ -52,22 +52,43 @@ export default function NavBar() {
                 href="#pricing"
                 style={{ marginLeft: "15px", marginRight: "15px" }}
               >
-                PROPERTIES
+                <Link
+                  style={{ textDecoration: "none", color: "inherit" }}
+                  to="/properties"
+                >
+                  {" "}
+                  PROPERTIES{" "}
+                </Link>
               </Nav.Link>{" "}
-              <Nav.Link
+              {/* <Nav.Link
                 href="#pricing"
                 style={{ marginLeft: "15px", marginRight: "15px" }}
               >
                 PROMO
-              </Nav.Link>{" "}
+              </Nav.Link>{" "} */}
               <NavDropdown
                 title="CATEGORIES"
                 id="collasible-nav-dropdown"
                 style={{ marginLeft: "15px", marginRight: "15px" }}
               >
-                <NavDropdown.Item href="#action/3.1">HOUSE</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.1">
+                  {" "}
+                  <Link
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    to="/categories/house"
+                  >
+                    {" "}
+                    HOUSE{" "}
+                  </Link>
+                </NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">
-                  APARTEMENT
+                  <Link
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    to="/categories/apartement"
+                  >
+                    {" "}
+                    APARTEMENT{" "}
+                  </Link>
                 </NavDropdown.Item>
               </NavDropdown>
               <Nav.Link

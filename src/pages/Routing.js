@@ -1,12 +1,16 @@
 import { Routes, Route } from "react-router-dom";
 import NavBar from "../components/navbar/NavBar";
 import Footer from "../components/footer/Footer";
+import { useSelector } from "react-redux";
 import Test from "./test";
 // Pages
 import Home from "./home/Home";
 import Search from "./search/SearchPage";
 import DetailProperties from "./detailProperties/DetailProperties";
-import { useSelector } from "react-redux";
+import Properties from "./properties/Properties";
+import House from "./categories/House";
+import Apartement from "./categories/Apartement";
+import ContactUs from "./contact/ContactUs";
 export default function Routing() {
   const data = useSelector((s) => s.listProperty.listProperties);
   // let path = useLocation();
@@ -19,7 +23,10 @@ export default function Routing() {
         <Route path="/home" element={<Home />} />
         <Route path="/test" element={<Test />} />
         <Route path="/search" element={<Search />} />
-
+        <Route path="/properties" element={<Properties />} />
+        <Route path="/categories/house" element={<House />} />
+        <Route path="/categories/apartement" element={<Apartement />} />
+        <Route path="/contact-us" element={<ContactUs />} />
         <Route
           path="/properties/:id"
           element={<DetailProperties data={data} />}
