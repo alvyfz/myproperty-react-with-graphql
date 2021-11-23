@@ -1,20 +1,176 @@
-import { Carousel } from "react-bootstrap";
+import { Carousel, Row, Col, Form, Button, Spinner } from "react-bootstrap";
+import { useState } from "react";
+import { gql, useMutation } from "@apollo/client";
+import Swal from "sweetalert2";
+
+const INSERT_CONTACT = gql`
+  mutation MyMutation($object: contact_user_insert_input!) {
+    insert_contact_user_one(object: $object) {
+      id
+    }
+  }
+`;
 const ContactUs = () => {
+  const [insertMessage, { loading, error }] = useMutation(INSERT_CONTACT);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [errorName, setErrorName] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const nameRegex = /^[a-zA-Z\s]{2,40}$/;
+  const emailRegex = /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/;
+  const [message, setMessage] = useState("");
+
+  const handleChangeName = (e) => {
+    setName(e.target.value);
+    if (!nameRegex.test(e.target.value)) {
+      setErrorName("Nama harus berupa huruf dengan panjang 2-40 ");
+    } else {
+      setErrorName("");
+    }
+  };
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
+    if (!emailRegex.test(e.target.value)) {
+      setErrorEmail("Format email yang kamu isi tidak sesuai");
+    } else {
+      setErrorEmail("");
+    }
+  };
+  const handleChangeMessage = (e) => {
+    setMessage(e.target.value);
+  };
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          margin: "100px",
+          // textAlign: "center",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "inherit",
+        }}
+      >
+        <Spinner animation="border" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return error;
+  }
+
+  const handleSubmit = (e) => {
+    // e.preventDefault();
+    insertMessage({
+      variables: { object: { name: name, email: email, message: message } },
+    });
+    setName("");
+    setEmail("");
+    setMessage("");
+    return Swal.fire("Good job!", "Your message has been sent!", "success");
+  };
   return (
-    <Carousel>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="https://images.unsplash.com/photo-1552335870-9194e2f5c4be?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80/text=First slide&bg=373940"
-          alt="First slide"
-          height="643px"
-        />
-        <Carousel.Caption>
-          <h1>First slide label</h1>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
+    <>
+      <Row className="justify-content-center">
+        <Col lg={6}>
+          <Carousel indicators={false} nextIcon="" nextLabel="" prevIcon="">
+            <Carousel.Item>
+              <img
+                className="d-block w-100"
+                src="https://images.unsplash.com/photo-1512626120412-faf41adb4874?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                alt="First slide"
+                height="643px"
+                style={{ objectFit: "cover" }}
+              />
+              <Carousel.Caption>
+                <h1>
+                  <strong>CONTACT US </strong>
+                </h1>
+                <h3>
+                  {" "}
+                  <strong> Don't be shy, ask the PropertySquad.</strong>
+                </h3>
+              </Carousel.Caption>
+            </Carousel.Item>
+          </Carousel>
+        </Col>{" "}
+        <Col
+          lg={6}
+          style={{
+            backgroundColor: "white",
+            marginBottom: "100px",
+            // border: "1px solid grey",
+            padding: "20px",
+            height: "643px",
+          }}
+        >
+          <h2>What's your problem? Tell me please...</h2>
+          <form
+            onSubmit={handleSubmit}
+            name="myForm"
+            style={{ margin: "100px 50px 50px 50px" }}
+          >
+            <Form.Group className="mb-3">
+              {/* <Form.Label>
+                  Full Name<tag>*</tag>
+                </Form.Label> */}
+              <Form.Control
+                onChange={handleChangeName}
+                id="fullname"
+                size="sm"
+                type="text"
+                placeholder="Your Name Here..."
+                value={name}
+              />
+              <Form.Text className="formText" style={{ color: "red" }}>
+                {errorName}
+              </Form.Text>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              {/* <Form.Label>
+                  Email<tag>*</tag>
+                </Form.Label> */}
+              <Form.Control
+                id="email"
+                size="sm"
+                type="email"
+                placeholder="Your Email Here..."
+                onChange={handleChangeEmail}
+                value={email}
+              />
+              <Form.Text className="formText" style={{ color: "red" }}>
+                {errorEmail}
+              </Form.Text>
+            </Form.Group>
+            <br />
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              {/* <Form.Label>Message</Form.Label> */}
+              <Form.Control
+                id="message"
+                as="textarea"
+                rows={3}
+                placeholder="Your Problem Text Here...."
+                value={message}
+                onChange={handleChangeMessage}
+              />
+            </Form.Group>
+            <Button
+              // onSubmit="{handleSubmit}"
+              type="submit"
+              variant="outline-dark"
+              id="button"
+            >
+              Submit
+            </Button>{" "}
+          </form>
+        </Col>
+      </Row>{" "}
+    </>
   );
 };
 export default ContactUs;

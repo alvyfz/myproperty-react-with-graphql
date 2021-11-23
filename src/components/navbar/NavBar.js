@@ -41,9 +41,8 @@ export default function NavBar() {
               <Nav.Link
                 as={Link}
                 style={{ marginLeft: "15px", marginRight: "15px" }}
-                to="/home"
+                to="/"
               >
-                {/* style={{ textDecoration: "none", color: "inherit" }} */}
                 HOME
               </Nav.Link>
               <Nav.Link
@@ -51,7 +50,6 @@ export default function NavBar() {
                 to="/properties"
                 style={{ marginLeft: "15px", marginRight: "15px" }}
               >
-                {/* // style={{ textDecoration: "none", color: "inherit" }} */}
                 PROPERTIES
               </Nav.Link>{" "}
               <NavDropdown
