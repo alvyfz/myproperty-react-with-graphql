@@ -38,76 +38,48 @@ export default function NavBar() {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link style={{ marginLeft: "15px", marginRight: "15px" }}>
-                {" "}
-                <Link
-                  style={{ textDecoration: "none", color: "inherit" }}
-                  to="/home"
-                >
-                  {" "}
-                  HOME{" "}
-                </Link>
+              <Nav.Link
+                as={Link}
+                style={{ marginLeft: "15px", marginRight: "15px" }}
+                to="/home"
+              >
+                {/* style={{ textDecoration: "none", color: "inherit" }} */}
+                HOME
               </Nav.Link>
               <Nav.Link
-                href="#pricing"
+                as={Link}
+                to="/properties"
                 style={{ marginLeft: "15px", marginRight: "15px" }}
               >
-                <Link
-                  style={{ textDecoration: "none", color: "inherit" }}
-                  to="/properties"
-                >
-                  {" "}
-                  PROPERTIES{" "}
-                </Link>
+                {/* // style={{ textDecoration: "none", color: "inherit" }} */}
+                PROPERTIES
               </Nav.Link>{" "}
-              {/* <Nav.Link
-                href="#pricing"
-                style={{ marginLeft: "15px", marginRight: "15px" }}
-              >
-                PROMO
-              </Nav.Link>{" "} */}
               <NavDropdown
                 title="CATEGORIES"
                 id="collasible-nav-dropdown"
                 style={{ marginLeft: "15px", marginRight: "15px" }}
               >
-                <NavDropdown.Item href="#action/3.1">
-                  {" "}
-                  <Link
-                    style={{ textDecoration: "none", color: "inherit" }}
-                    to="/categories/house"
-                  >
-                    {" "}
-                    HOUSE{" "}
-                  </Link>
+                <NavDropdown.Item as={Link} to="./categories/house">
+                  HOUSE
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  <Link
-                    style={{ textDecoration: "none", color: "inherit" }}
-                    to="/categories/apartement"
-                  >
-                    {" "}
-                    APARTEMENT{" "}
-                  </Link>
+                <NavDropdown.Item as={Link} to="/categories/apartement">
+                  APARTEMENT{" "}
                 </NavDropdown.Item>
               </NavDropdown>
               <Nav.Link
-                href="#pricing"
+                as={Link}
+                to="/contact-us"
                 style={{ marginLeft: "15px", marginRight: "15px" }}
               >
                 CONTACT US
               </Nav.Link>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets" style={{ marginLeft: "10px" }}>
+              <Nav.Link style={{ marginLeft: "10px" }}>
                 {" "}
                 <OffCanvasExample placement="top" name="top" />
               </Nav.Link>
-              <Nav.Link
-                eventKey={2}
-                style={{ marginLeft: "10px" }}
-                href="#memes"
-              >
+              <Nav.Link eventKey={2} style={{ marginLeft: "10px" }}>
                 <BsHeart size={20} />
               </Nav.Link>
               <Nav.Link

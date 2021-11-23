@@ -51,7 +51,7 @@ function Home() {
       </div>
     );
   } else {
-    dispatch(addList(data.properties));
+    dispatch(addList(data?.properties));
   }
   if (error) {
     return error;
