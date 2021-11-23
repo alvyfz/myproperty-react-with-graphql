@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "../components/navbar/NavBar";
 import Footer from "../components/footer/Footer";
 import { useSelector } from "react-redux";
@@ -11,15 +11,16 @@ import Properties from "./properties/Properties";
 import House from "./categories/House";
 import Apartement from "./categories/Apartement";
 import ContactUs from "./contact/ContactUs";
+import Login from "./login/Login";
 export default function Routing() {
   const data = useSelector((s) => s.listProperty.listProperties);
-  // let path = useLocation();
+  let path = useLocation();
   return (
     <>
-      {/* {path.pathname === "/login" || "/signup" ? null : <Navbar />} */}
-      <NavBar />
+      {path.pathname === "/login" ? null : <NavBar />}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/test" element={<Test />} />
         <Route path="/search" element={<Search />} />
@@ -32,7 +33,7 @@ export default function Routing() {
           element={<DetailProperties data={data} />}
         />
       </Routes>
-      <Footer />
+      {path.pathname === "/login" ? null : <Footer />}
     </>
   );
 }

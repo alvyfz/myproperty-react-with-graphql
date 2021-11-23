@@ -26,7 +26,6 @@ export default function Footer() {
                   <dl style={{ fontSize: "14px" }}>
                     <dd>Home</dd>
                     <dd>Properties</dd>
-                    <dd>Promo</dd>
                     <dd>Categories</dd>
                     <dd>Contact Us</dd>
                   </dl>

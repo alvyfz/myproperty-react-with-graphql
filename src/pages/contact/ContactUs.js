@@ -23,7 +23,7 @@ const ContactUs = () => {
   const handleChangeName = (e) => {
     setName(e.target.value);
     if (!nameRegex.test(e.target.value)) {
-      setErrorName("Nama harus berupa huruf dengan panjang 2-40 ");
+      setErrorName("The name must be a letter 2-40.");
     } else {
       setErrorName("");
     }
@@ -31,7 +31,7 @@ const ContactUs = () => {
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
     if (!emailRegex.test(e.target.value)) {
-      setErrorEmail("Format email yang kamu isi tidak sesuai");
+      setErrorEmail("Wrong email format.");
     } else {
       setErrorEmail("");
     }
