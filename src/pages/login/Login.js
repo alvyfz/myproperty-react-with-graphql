@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable array-callback-return */
 import Brand from "../../components/brand/Brand";
@@ -11,24 +12,25 @@ import {
   Button,
   Spinner,
 } from "react-bootstrap";
-import { useState } from "react";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { useState, useEffect } from "react";
+import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import { addId } from "../../stores/Id";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import Error404 from "../../components/error/Error404";
 
-const QUERY_PROPERTIES = gql`
-  query MyQuery {
-    users {
+const QUERY_LOGIN = gql`
+  query MyQuery($email: String!, $password: String!) {
+    users(
+      where: { _and: {}, email: { _eq: $email }, password: { _eq: $password } }
+    ) {
       id
-      name
-      password
       email
+      name
     }
   }
 `;
+
 const INSERT_USERS = gql`
   mutation MyMutation($object: users_insert_input!) {
     insert_users_one(object: $object) {
@@ -37,10 +39,15 @@ const INSERT_USERS = gql`
   }
 `;
 const Login = () => {
-  const { data, loading, error } = useQuery(QUERY_PROPERTIES);
-  const [insertMessage, { loadingM, errorM }] = useMutation(INSERT_USERS, {
-    refetchQueries: [QUERY_PROPERTIES],
-  });
+  // const { data, loading, error } = useQuery(QUERY_PROPERTIES);
+  const [insertMessage, { data, loading: loadingM, error: errorM }] =
+    useMutation(INSERT_USERS, {
+      onError(error) {
+        console.log(error);
+      },
+    });
+  const [doLogin, { data: dataLogin, loading: dataLoading }] =
+    useLazyQuery(QUERY_LOGIN);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -62,7 +69,47 @@ const Login = () => {
   const nameRegex = /^[a-zA-Z\s]{2,40}$/;
   const emailRegex = /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/;
   const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
-  if (loading || loadingM) {
+
+  useEffect(() => {
+    if (dataLogin?.users.length > 0) {
+      dispatch(addId(dataLogin?.users[0].id));
+      Swal.fire(
+        "Sign Up Success!",
+        "You can open wishlist and chat",
+        "success"
+      );
+      navigate("/");
+    }
+    if (dataLogin?.users.length === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Email or  Password wrong!",
+      });
+    }
+  }, [dataLogin]);
+
+  useEffect(() => {
+    if (errorM) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Email already registered!",
+      });
+    }
+  }, [errorM]);
+
+  useEffect(() => {
+    if (data !== undefined) {
+      setEmailUp("");
+      setNameUp("");
+      setPassword1Up("");
+      setPassword2Up("");
+      Swal.fire("Sign up success!", "You can Sign In now!", "success");
+      navigate("/login");
+    }
+  }, [data]);
+  if (dataLoading || loadingM) {
     return (
       <div
         style={{
@@ -78,9 +125,7 @@ const Login = () => {
       </div>
     );
   }
-  if (error || errorM) {
-    return <Error404 />;
-  }
+
   const handleChangeNameUp = (e) => {
     setNameUp(e.target.value);
     if (!nameRegex.test(e.target.value)) {
@@ -93,14 +138,9 @@ const Login = () => {
   };
   const handleChangeEmailUp = (e) => {
     setEmailUp(e.target.value);
-    let valid = data.users.find((v) => v.email === e.target.value);
-    console.log(valid);
     if (!emailRegex.test(e.target.value)) {
       setErrorEmail("Wrong email format.");
       setValidEmail(false);
-    } else if (valid !== undefined) {
-      setValidEmail(false);
-      setErrorEmail("Email e-mail already registered.");
     } else {
       setValidEmail(true);
       setErrorEmail("");
@@ -131,38 +171,23 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    data?.users.map((v) => {
-      if (v.email === emailIn && v.password === passwordIn) {
-        dispatch(addId(v.id));
-        Swal.fire(
-          "Sign Up Success!",
-          "You can open wishlist and chat",
-          "success"
-        );
-        navigate("/");
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Email or  Password wrong!",
-        });
-      }
+    doLogin({
+      variables: {
+        email: emailIn,
+        password: passwordIn,
+      },
     });
+    setEmailIn("");
+    setPasswordIn("");
   };
   const handleSignup = (e) => {
     e.preventDefault();
-    if (validEmail && validName && validPassword1 && validPassword2 === true) {
+    if (validEmail && validName && validPassword1 && validPassword2) {
       insertMessage({
         variables: {
           object: { name: nameUp, email: emailUp, password: password2Up },
         },
       });
-      setEmailUp("");
-      setNameUp("");
-      setPassword1Up("");
-      setPassword2Up("");
-      Swal.fire("Sign up success!", "You can Sign In now!", "success");
-      navigate("/login");
     } else {
       Swal.fire({
         icon: "error",
