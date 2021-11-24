@@ -6,6 +6,7 @@ import AOS from "aos";
 import { useEffect } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { addList } from "../../stores/ListProperty";
+import Error404 from "../../components/error/Error404";
 
 const QUERY = gql`
   query MyQuery {
@@ -52,7 +53,7 @@ const Apartement = () => {
     dispatch(addList(data.properties));
   }
   if (error) {
-    return error;
+    return <Error404 />;
   }
   return (
     <>

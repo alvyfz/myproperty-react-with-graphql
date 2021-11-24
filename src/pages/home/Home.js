@@ -8,6 +8,7 @@ import AOS from "aos";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addList } from "../../stores/ListProperty";
+import Error404 from "../../components/error/Error404";
 
 const QUERY_PROPERTIES = gql`
   query MyQuery {
@@ -54,7 +55,7 @@ function Home() {
     dispatch(addList(data?.properties));
   }
   if (error) {
-    return error;
+    return <Error404 />;
   }
   return (
     <>

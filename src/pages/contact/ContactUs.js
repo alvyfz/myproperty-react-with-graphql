@@ -2,6 +2,7 @@ import { Carousel, Row, Col, Form, Button, Spinner } from "react-bootstrap";
 import { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import Swal from "sweetalert2";
+import Error404 from "../../components/error/Error404";
 
 const INSERT_CONTACT = gql`
   mutation MyMutation($object: contact_user_insert_input!) {
@@ -58,7 +59,7 @@ const ContactUs = () => {
   }
 
   if (error) {
-    return error;
+    return <Error404 />;
   }
 
   const handleSubmit = (e) => {

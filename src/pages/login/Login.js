@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { addId } from "../../stores/Id";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import Error404 from "../../components/error/Error404";
 
 const QUERY_PROPERTIES = gql`
   query MyQuery {
@@ -78,7 +79,7 @@ const Login = () => {
     );
   }
   if (error || errorM) {
-    return error;
+    return <Error404 />;
   }
   const handleChangeNameUp = (e) => {
     setNameUp(e.target.value);
@@ -92,9 +93,14 @@ const Login = () => {
   };
   const handleChangeEmailUp = (e) => {
     setEmailUp(e.target.value);
+    let valid = data.users.find((v) => v.email === e.target.value);
+    console.log(valid);
     if (!emailRegex.test(e.target.value)) {
       setErrorEmail("Wrong email format.");
       setValidEmail(false);
+    } else if (valid !== undefined) {
+      setValidEmail(false);
+      setErrorEmail("Email e-mail already registered.");
     } else {
       setValidEmail(true);
       setErrorEmail("");
@@ -145,13 +151,7 @@ const Login = () => {
   };
   const handleSignup = (e) => {
     e.preventDefault();
-    if (validEmail && validName && validPassword1 && validPassword2 === !true) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Form format is wrong!",
-      });
-    } else {
+    if (validEmail && validName && validPassword1 && validPassword2 === true) {
       insertMessage({
         variables: {
           object: { name: nameUp, email: emailUp, password: password2Up },
@@ -162,6 +162,13 @@ const Login = () => {
       setPassword1Up("");
       setPassword2Up("");
       Swal.fire("Sign up success!", "You can Sign In now!", "success");
+      navigate("/login");
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Form format is wrong!",
+      });
     }
   };
 

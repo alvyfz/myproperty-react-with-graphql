@@ -2,7 +2,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "../components/navbar/NavBar";
 import Footer from "../components/footer/Footer";
 import { useSelector } from "react-redux";
-import Test from "./test";
+import Error from "../components/error/ErrorNotFound";
 // Pages
 import Home from "./home/Home";
 import Search from "./search/SearchPage";
@@ -22,7 +22,7 @@ export default function Routing() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/test" element={<Test />} />
+        <Route path="*" element={<Error />} />
         <Route path="/search" element={<Search />} />
         <Route path="/properties" element={<Properties />} />
         <Route path="/categories/house" element={<House />} />
