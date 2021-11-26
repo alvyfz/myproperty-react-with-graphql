@@ -14,10 +14,11 @@ import {
 } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { gql, useMutation, useLazyQuery } from "@apollo/client";
-import { useDispatch } from "react-redux";
-import { addId } from "../../stores/Id";
+// import { useDispatch } from "react-redux";
+// import { addId } from "../../stores/Id";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { setCookie } from "nookies";
 
 const QUERY_LOGIN = gql`
   query MyQuery($email: String!, $password: String!) {
@@ -49,7 +50,7 @@ const Login = () => {
   const [doLogin, { data: dataLogin, loading: dataLoading }] =
     useLazyQuery(QUERY_LOGIN);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const [key, setKey] = useState("signin");
   const [nameUp, setNameUp] = useState("");
@@ -72,12 +73,11 @@ const Login = () => {
 
   useEffect(() => {
     if (dataLogin?.users.length > 0) {
-      dispatch(addId(dataLogin?.users[0].id));
-      Swal.fire(
-        "Sign Up Success!",
-        "You can open wishlist and chat",
-        "success"
-      );
+      // dispatch(addId(dataLogin?.users[0].id));
+      setCookie(null, "idLogin", dataLogin?.users[0].id, {
+        maxAge: 3 * 60 * 60,
+      });
+      Swal.fire("Sig In Success!", "You can open wishlist and chat", "success");
       navigate("/");
     }
     if (dataLogin?.users.length === 0) {

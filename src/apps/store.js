@@ -4,7 +4,6 @@ import searchReducer from "../stores/Search";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import { combineReducers } from "redux";
-import idLoginReducer from "../stores/Id";
 const persistConfig = {
   key: "root",
   storage,
@@ -13,7 +12,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   listProperty: listPropertyReducer,
   search: searchReducer,
-  idLogin: idLoginReducer,
+  // idLogin: idLoginReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

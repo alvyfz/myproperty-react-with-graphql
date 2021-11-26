@@ -1,15 +1,56 @@
 /* eslint-disable array-callback-return */
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
 import { BsHeartFill } from "react-icons/bs";
 import { useParams, Link } from "react-router-dom";
+// import { useSelector } from "react-redux";
 import AOS from "aos";
 import { useEffect } from "react";
+import { gql, useMutation } from "@apollo/client";
+import Swal from "sweetalert2";
+import { parseCookies } from "nookies";
+
+const ADD_WISHLIST = gql`
+  mutation MyMutation($property_id: Int!, $user_id: Int!) {
+    insert_wishlists_one(
+      object: { property_id: $property_id, user_id: $user_id }
+    ) {
+      id
+    }
+  }
+`;
 
 export default function DetailProperties({ data }) {
   const { id } = useParams();
+  const idLogin = parseInt(parseCookies("idLogin").idLogin);
+  const [addWishlist, { data: dataAdd, loading: loadingAdd, error: errorAdd }] =
+    useMutation(ADD_WISHLIST, {
+      onError(error) {
+        console.log(error);
+      },
+    });
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
+  useEffect(() => {
+    if (errorAdd) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You have to login first or property already in wishlist!",
+      });
+    }
+  }, [errorAdd]);
+  useEffect(() => {
+    if (dataAdd !== undefined) {
+      Swal.fire("Add property to wishlist success!", "", "success");
+    }
+  }, [dataAdd]);
+
   const filtered = data.filter((v) => {
     if (v.id === parseInt(id)) {
       return true;
@@ -17,6 +58,22 @@ export default function DetailProperties({ data }) {
       return false;
     }
   });
+  if (loadingAdd) {
+    return (
+      <div
+        style={{
+          margin: "100px",
+          // textAlign: "center",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "inherit",
+        }}
+      >
+        <Spinner animation="border" />
+      </div>
+    );
+  }
   const formatRupiah = (price) => {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
@@ -24,10 +81,20 @@ export default function DetailProperties({ data }) {
       minimumFractionDigits: 0,
     }).format(price);
   };
-  useEffect(() => {
-    AOS.init();
-    AOS.refresh();
-  }, []);
+
+  const handleAddWishlist = (idx) => {
+    addWishlist({
+      variables: {
+        property_id: idx,
+        user_id: idLogin,
+      },
+    });
+    // Swal.fire(
+    //   "Add wishlist success!",
+    //   "You can see your property in wishlist!",
+    //   "success"
+    // );
+  };
   return (
     <>
       {filtered.map((v) => {
@@ -78,7 +145,10 @@ export default function DetailProperties({ data }) {
                         </tag>
                       </Button>
                       &nbsp;
-                      <Button variant="outline-dark">
+                      <Button
+                        variant="outline-dark"
+                        onClick={() => handleAddWishlist(v.id)}
+                      >
                         <tag style={{ fontSize: "20px" }}>
                           <BsHeartFill />
                           &nbsp; ADD WISHLIST

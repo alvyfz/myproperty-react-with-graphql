@@ -11,14 +11,24 @@ import {
   Button,
   Form,
 } from "react-bootstrap";
+
 import { useState } from "react";
 import { BsSearch, BsHeart, BsChatSquareText, BsPerson } from "react-icons/bs";
 import Brand from "../brand/Brand";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
+import { parseCookies, destroyCookie } from "nookies";
 import { addSearch } from "../../stores/Search";
+import Swal from "sweetalert2";
 
 export default function NavBar() {
+  const navigate = useNavigate();
+  const idLogin = parseInt(parseCookies("idLogin").idLogin);
+  const handleLogout = () => {
+    destroyCookie(null, "idLogin");
+    Swal.fire("Sign out success!", "", "warning");
+    navigate("/");
+  };
   return (
     <>
       <Navbar
@@ -57,7 +67,7 @@ export default function NavBar() {
                 id="collasible-nav-dropdown"
                 style={{ marginLeft: "15px", marginRight: "15px" }}
               >
-                <NavDropdown.Item as={Link} to="./categories/house">
+                <NavDropdown.Item as={Link} to="/categories/house">
                   HOUSE
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/categories/apartement">
@@ -77,7 +87,12 @@ export default function NavBar() {
                 {" "}
                 <OffCanvasExample placement="top" name="top" />
               </Nav.Link>
-              <Nav.Link eventKey={2} style={{ marginLeft: "10px" }}>
+              <Nav.Link
+                as={Link}
+                to="/wishlist"
+                eventKey={2}
+                style={{ marginLeft: "10px" }}
+              >
                 <BsHeart size={20} />
               </Nav.Link>
               <Nav.Link
@@ -87,13 +102,29 @@ export default function NavBar() {
               >
                 <BsChatSquareText size={20} />
               </Nav.Link>
-              <Nav.Link
-                eventKey={2}
-                style={{ marginLeft: "10px" }}
-                href="#memes"
+              <NavDropdown
+                title={<BsPerson size={20} />}
+                id="collasible-nav-dropdown"
+                style={{ marginLeft: "10px", marginRight: "15px" }}
               >
-                <BsPerson size={20} />
-              </Nav.Link>
+                {idLogin === undefined || isNaN(idLogin) ? (
+                  <>
+                    <NavDropdown.Item as={Link} to="/login">
+                      SIGN IN / SIGN UP
+                    </NavDropdown.Item>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <NavDropdown.Item as={Link} to="/myaccount">
+                      MY ACCOUNT
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={handleLogout}>
+                      SIGN OUT
+                    </NavDropdown.Item>
+                  </>
+                )}
+              </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -154,7 +185,7 @@ function OffCanvasExample({ name, ...props }) {
                     />
                     <Button variant="outline-secondary" id="button-addon2">
                       {" "}
-                      <BsSearch />{" "}
+                      <BsSearch />
                     </Button>
                   </InputGroup>
                 </Form>

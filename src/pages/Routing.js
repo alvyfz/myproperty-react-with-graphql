@@ -12,6 +12,9 @@ import House from "./categories/House";
 import Apartement from "./categories/Apartement";
 import ContactUs from "./contact/ContactUs";
 import Login from "./login/Login";
+import Wishlist from "./wishlist/wishlist";
+import MyAccount from "./myAccount/MyAccount";
+
 export default function Routing() {
   const data = useSelector((s) => s.listProperty.listProperties);
   let path = useLocation();
@@ -28,10 +31,13 @@ export default function Routing() {
         <Route path="/categories/house" element={<House />} />
         <Route path="/categories/apartement" element={<Apartement />} />
         <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/myaccount" element={<MyAccount />} />
         <Route
           path="/properties/:id"
           element={<DetailProperties data={data} />}
         />
+        {/* <Route path="/test" element={<Test />} /> */}
       </Routes>
       {path.pathname === "/login" ? null : <Footer />}
     </>
