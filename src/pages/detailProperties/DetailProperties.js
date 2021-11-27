@@ -2,15 +2,15 @@
 import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
 import { BsHeartFill } from "react-icons/bs";
 import { useParams, Link } from "react-router-dom";
-// import { useSelector } from "react-redux";
 import AOS from "aos";
 import { useEffect } from "react";
 import { gql, useMutation } from "@apollo/client";
 import Swal from "sweetalert2";
 import { parseCookies } from "nookies";
 import { Swiper, SwiperSlide } from "swiper/react";
+
 import CardProperty1 from "../../components/card/Card";
-import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+// import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 const ADD_WISHLIST = gql`
   mutation MyMutation($property_id: Int!, $user_id: Int!) {
@@ -61,6 +61,7 @@ export default function DetailProperties({ data }) {
       return false;
     }
   });
+
   if (loadingAdd) {
     return (
       <div
@@ -217,14 +218,13 @@ export default function DetailProperties({ data }) {
                 </Col> */}
               </Row>
               <Container
-                style={{ marginTop: "50px", paddingBottom: "100px" }}
+                style={{ marginTop: "50px", paddingBottom: "50px" }}
                 data-aos="zoom-in-up"
               >
                 <h5>Related</h5>
                 <Swiper
                   slidesPerView={5}
                   spaceBetween={0}
-                  // centeredSlides={true}
                   breakpoints={{
                     // when window width is >= 640px
                     320: {
@@ -242,9 +242,6 @@ export default function DetailProperties({ data }) {
                       spaceBetween: 0,
                     },
                   }}
-                  // pagination={{
-                  //   clickable: true,
-                  // }}
                   className="mySwiper"
                 >
                   {data?.map((value) => {
@@ -267,8 +264,7 @@ export default function DetailProperties({ data }) {
                   })}
                 </Swiper>
                 <div style={{ textAlign: "center" }}>
-                  {" "}
-                  <BsArrowLeft size={20} /> <BsArrowRight size={20} />{" "}
+                  {/* <BsArrowLeft size={20} /> <BsArrowRight size={20} />{" "} */}
                 </div>
               </Container>
             </Container>

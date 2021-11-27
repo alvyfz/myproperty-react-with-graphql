@@ -12,6 +12,16 @@ import { ApolloProvider } from "@apollo/client";
 import client from "./apps/apollo-client";
 import "aos/dist/aos.css";
 import "swiper/swiper.min.css";
+// swiper bundle styles
+import "swiper/swiper-bundle.min.css";
+
+// // modules styles
+// import "swiper/components/navigation/navigation.min.css";
+// import "swiper/components/pagination/pagination.min.css";
+// // import "swiper/swiper.scss";
+// import "swiper/css/navigation";
+// import "swiper/css/pagination";
+// import "swiper/css/scrollbar";
 
 ReactDOM.render(
   <ApolloProvider client={client}>
