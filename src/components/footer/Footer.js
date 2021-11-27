@@ -53,7 +53,16 @@ export default function Footer() {
                         to="/categories/house"
                       >
                         {" "}
-                        Categories{" "}
+                        House{" "}
+                      </Link>
+                    </dd>
+                    <dd>
+                      <Link
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        to="/categories/apartement"
+                      >
+                        {" "}
+                        Apartement{" "}
                       </Link>
                     </dd>
                     <dd>

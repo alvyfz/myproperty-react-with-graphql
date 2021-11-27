@@ -248,7 +248,10 @@ export default function DetailProperties({ data }) {
                   className="mySwiper"
                 >
                   {data?.map((value) => {
-                    if (value.category_id === v.category_id) {
+                    if (
+                      value.category_id === v.category_id &&
+                      value.id !== parseInt(id)
+                    ) {
                       return (
                         <SwiperSlide key={v.id}>
                           {" "}
