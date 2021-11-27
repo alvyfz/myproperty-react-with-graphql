@@ -36,7 +36,7 @@ export default function NavBar() {
         expand="lg"
         bg="white"
         variant="light"
-        style={{ fontWeight: "600" }}
+        style={{ fontWeight: "600", fontSize: "15px" }}
       >
         <Container>
           <Navbar.Brand style={{ marginRight: "200px" }}>
@@ -77,7 +77,7 @@ export default function NavBar() {
               <Nav.Link
                 as={Link}
                 to="/contact-us"
-                style={{ marginLeft: "15px", marginRight: "15px" }}
+                style={{ MarginLeft: "15px", marginRight: "15px" }}
               >
                 CONTACT US
               </Nav.Link>
