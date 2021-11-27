@@ -176,7 +176,7 @@ const Chat = () => {
                     style={{
                       backgroundColor: "#F2F2F2",
                       borderRadius: "25px",
-                      width: "600px",
+                      maxWidth: "600px",
                     }}
                   >
                     {" "}
@@ -201,7 +201,7 @@ const Chat = () => {
                             backgroundColor: "#092C4C",
                             color: "white",
                             borderRadius: "25px",
-                            width: "600px",
+                            maxWidth: "600px",
                           }}
                         >
                           <p
@@ -215,8 +215,15 @@ const Chat = () => {
                           </p>
                           <Row>
                             {" "}
-                            <Col lg={9}></Col>{" "}
-                            <Col style={{ fontSize: "12px" }} lg={3}>
+                            <Col
+                              style={{
+                                fontSize: "12px",
+                                textAlign: "right",
+                                marginLeft: "10px",
+                                // align: "left",
+                              }}
+                              xs={11}
+                            >
                               {moment(v.created_at).format("lll")}
                             </Col>
                           </Row>
