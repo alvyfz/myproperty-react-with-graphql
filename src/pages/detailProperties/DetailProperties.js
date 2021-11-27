@@ -139,9 +139,9 @@ export default function DetailProperties({ data }) {
                       <br />
                       <hr />
                       <br />
-                      <Button variant="dark">
+                      <Button variant="dark" as={Link} to="/chat">
                         <tag style={{ fontSize: "20px", margin: "39px" }}>
-                          BUY NOW
+                          BUY
                         </tag>
                       </Button>
                       &nbsp;
