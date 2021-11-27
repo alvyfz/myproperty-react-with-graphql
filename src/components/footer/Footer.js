@@ -1,5 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import Brand from "../brand/Brand";
+import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <>
@@ -24,10 +25,18 @@ export default function Footer() {
                   <h6 style={{ fontWeight: "600" }}>INFORMATION</h6>
                   <br />
                   <dl style={{ fontSize: "14px" }}>
-                    <dd>Home</dd>
-                    <dd>Properties</dd>
-                    <dd>Categories</dd>
-                    <dd>Contact Us</dd>
+                    <dd as={Link} to="/">
+                      Home
+                    </dd>
+                    <dd as={Link} to="/properties">
+                      Properties
+                    </dd>
+                    <dd as={Link} to="/categories/house">
+                      Categories
+                    </dd>
+                    <dd as={Link} to="/contact-us">
+                      Contact Us
+                    </dd>
                   </dl>
                 </>
               </Col>
@@ -49,9 +58,13 @@ export default function Footer() {
                   <h6 style={{ fontWeight: "600" }}>MY ACCOUNT</h6>
                   <br />
                   <dl style={{ fontSize: "14px" }}>
-                    <dd>My Account</dd>
+                    <dd as={Link} to="/myaccount">
+                      My Account
+                    </dd>
 
-                    <dd>Wishlist</dd>
+                    <dd as={Link} to="/wishlist">
+                      Wishlist
+                    </dd>
                   </dl>
                 </>
               </Col>

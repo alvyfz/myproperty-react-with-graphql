@@ -64,7 +64,6 @@ function Wishlist() {
 
   const navigate = useNavigate();
   const id = parseInt(parseCookies("idLogin").idLogin);
-  console.log(data);
   const wishlist = data?.wishlists;
 
   // useEffect(() => {

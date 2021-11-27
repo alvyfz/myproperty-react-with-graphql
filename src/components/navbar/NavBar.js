@@ -98,7 +98,8 @@ export default function NavBar() {
               <Nav.Link
                 eventKey={2}
                 style={{ marginLeft: "10px" }}
-                href="#jejej"
+                as={Link}
+                to="/chat"
               >
                 <BsChatSquareText size={20} />
               </Nav.Link>

@@ -1,4 +1,12 @@
-import { Carousel, Row, Col, Form, Button, Spinner } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Form,
+  Button,
+  Spinner,
+  Container,
+  FloatingLabel,
+} from "react-bootstrap";
 import { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import Swal from "sweetalert2";
@@ -74,8 +82,21 @@ const ContactUs = () => {
   };
   return (
     <>
+      <Container
+        fluid
+        style={{
+          backgroundColor: "#E0E0E0",
+          height: "197px",
+          textAlign: "center",
+        }}
+      >
+        <div style={{ paddingTop: "60px" }}>
+          <h2>CONTACT US</h2>
+          <h5>ACCOUNT / CONTACT US</h5>
+        </div>
+      </Container>
       <Row className="justify-content-center">
-        <Col lg={6}>
+        {/* <Col lg={6}>
           <Carousel indicators={false} nextIcon="" nextLabel="" prevIcon="">
             <Carousel.Item>
               <img
@@ -96,24 +117,31 @@ const ContactUs = () => {
               </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
-        </Col>{" "}
+        </Col>{" "} */}
         <Col
           lg={6}
           style={{
-            backgroundColor: "white",
+            backgroundColor: "#E0E0E0",
             marginBottom: "100px",
-            // border: "1px solid grey",
-            padding: "20px",
-            height: "643px",
+            marginTop: "50px", // border: "1px solid grey",
+            paddingTop: "20px",
+            minheight: "465px",
+            borderRadius: "40px",
           }}
         >
-          <h2>What's your problem? Tell me please...</h2>
+          <h4 style={{ textAlign: "center" }}>
+            What's your problem? Tell me please...
+          </h4>
           <form
             onSubmit={handleSubmit}
             name="myForm"
-            style={{ margin: "100px 50px 50px 50px" }}
+            style={{ margin: "40px 50px 30px 50px" }}
           >
-            <Form.Group className="mb-3">
+            <FloatingLabel
+              controlId="floatingPassword"
+              label="Your Name Here..."
+              className="mb-3"
+            >
               {/* <Form.Label>
                   Full Name<tag>*</tag>
                 </Form.Label> */}
@@ -128,14 +156,18 @@ const ContactUs = () => {
               <Form.Text className="formText" style={{ color: "red" }}>
                 {errorName}
               </Form.Text>
-            </Form.Group>
-            <Form.Group className="mb-3">
-              {/* <Form.Label>
+            </FloatingLabel>
+            {/* <Form.Label>
                   Email<tag>*</tag>
                 </Form.Label> */}
+            <FloatingLabel
+              controlId="floatingPassword"
+              label="Your Email Here..."
+              className="mb-3"
+            >
               <Form.Control
-                id="email"
                 size="sm"
+                id="email"
                 type="email"
                 placeholder="Your Email Here..."
                 onChange={handleChangeEmail}
@@ -144,11 +176,11 @@ const ContactUs = () => {
               <Form.Text className="formText" style={{ color: "red" }}>
                 {errorEmail}
               </Form.Text>
-            </Form.Group>
-            <br />
-            <Form.Group
+            </FloatingLabel>
+            <FloatingLabel
+              controlId="floatingPassword"
+              label="Your Problem Text Here...."
               className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
             >
               {/* <Form.Label>Message</Form.Label> */}
               <Form.Control
@@ -159,12 +191,13 @@ const ContactUs = () => {
                 value={message}
                 onChange={handleChangeMessage}
               />
-            </Form.Group>
+            </FloatingLabel>
             <Button
-              // onSubmit="{handleSubmit}"
+              onSubmit="{handleSubmit}"
               type="submit"
-              variant="outline-dark"
+              variant="light"
               id="button"
+              style={{ width: "630px" }}
             >
               Submit
             </Button>{" "}
