@@ -132,8 +132,8 @@ function Home() {
                   data-aos="zoom-in-up"
                   key={v.id}
                   md="auto"
-                  xs="auto"
-                  sm="auto"
+                  xs={6}
+                  sm={6}
                   lg={2}
                   style={{ marginTop: "20px" }}
                 >

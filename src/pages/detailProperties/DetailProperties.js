@@ -8,6 +8,9 @@ import { useEffect } from "react";
 import { gql, useMutation } from "@apollo/client";
 import Swal from "sweetalert2";
 import { parseCookies } from "nookies";
+import { Swiper, SwiperSlide } from "swiper/react";
+import CardProperty1 from "../../components/card/Card";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 const ADD_WISHLIST = gql`
   mutation MyMutation($property_id: Int!, $user_id: Int!) {
@@ -172,7 +175,7 @@ export default function DetailProperties({ data }) {
                     <p data-aos="zoom-in-up">{v.description}</p>
                   </Row>
                 </Col>
-                <Col lg={3} style={{ border: "1px solid gray" }}>
+                {/* <Col lg={3} style={{ border: "1px solid gray" }}>
                   <p style={{ marginTop: "10px" }} data-aos="zoom-in-left">
                     Related properties
                   </p>
@@ -211,8 +214,60 @@ export default function DetailProperties({ data }) {
                       );
                     }
                   })}
-                </Col>
+                </Col> */}
               </Row>
+              <Container
+                style={{ marginTop: "50px", paddingBottom: "100px" }}
+                data-aos="zoom-in-up"
+              >
+                <h5>Related</h5>
+                <Swiper
+                  slidesPerView={5}
+                  spaceBetween={0}
+                  // centeredSlides={true}
+                  breakpoints={{
+                    // when window width is >= 640px
+                    320: {
+                      slidesPerView: 2,
+                      spaceBetween: 0,
+                    },
+                    // when window width is >= 480px
+                    480: {
+                      slidesPerView: 2,
+                      spaceBetween: 0,
+                    },
+                    // when window width is >= 640px
+                    640: {
+                      slidesPerView: 5,
+                      spaceBetween: 0,
+                    },
+                  }}
+                  // pagination={{
+                  //   clickable: true,
+                  // }}
+                  className="mySwiper"
+                >
+                  {data?.map((value) => {
+                    if (value.category_id === v.category_id) {
+                      return (
+                        <SwiperSlide key={v.id}>
+                          {" "}
+                          <CardProperty1
+                            idx={value.id}
+                            name={value.name}
+                            img={value.img}
+                            price={value.price}
+                          />
+                        </SwiperSlide>
+                      );
+                    }
+                  })}
+                </Swiper>
+                <div style={{ textAlign: "center" }}>
+                  {" "}
+                  <BsArrowLeft size={20} /> <BsArrowRight size={20} />{" "}
+                </div>
+              </Container>
             </Container>
           </div>
         );

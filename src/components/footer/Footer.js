@@ -5,7 +5,11 @@ export default function Footer() {
   return (
     <>
       <Container
-        style={{ textAlign: "left", marginBottom: "50px", marginTop: "50px" }}
+        style={{
+          textAlign: "left",
+          marginBottom: "50px",
+          marginTop: "50px",
+        }}
       >
         <Row>
           <Col lg={6}>
@@ -25,17 +29,41 @@ export default function Footer() {
                   <h6 style={{ fontWeight: "600" }}>INFORMATION</h6>
                   <br />
                   <dl style={{ fontSize: "14px" }}>
-                    <dd as={Link} to="/">
-                      Home
+                    <dd>
+                      <Link
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        to="/"
+                      >
+                        {" "}
+                        Home{" "}
+                      </Link>
                     </dd>
-                    <dd as={Link} to="/properties">
-                      Properties
+                    <dd>
+                      <Link
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        to="/properties"
+                      >
+                        {" "}
+                        Properties{" "}
+                      </Link>
                     </dd>
-                    <dd as={Link} to="/categories/house">
-                      Categories
+                    <dd>
+                      <Link
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        to="/categories/house"
+                      >
+                        {" "}
+                        Categories{" "}
+                      </Link>
                     </dd>
-                    <dd as={Link} to="/contact-us">
-                      Contact Us
+                    <dd>
+                      <Link
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        to="/contact-us"
+                      >
+                        {" "}
+                        Contact Us{" "}
+                      </Link>
                     </dd>
                   </dl>
                 </>
@@ -58,12 +86,24 @@ export default function Footer() {
                   <h6 style={{ fontWeight: "600" }}>MY ACCOUNT</h6>
                   <br />
                   <dl style={{ fontSize: "14px" }}>
-                    <dd as={Link} to="/myaccount">
-                      My Account
+                    <dd>
+                      <Link
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        to="/myaccount"
+                      >
+                        {" "}
+                        My Account{" "}
+                      </Link>
                     </dd>
 
-                    <dd as={Link} to="/wishlist">
-                      Wishlist
+                    <dd>
+                      <Link
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        to="/wishlist"
+                      >
+                        {" "}
+                        Wishlist{" "}
+                      </Link>
                     </dd>
                   </dl>
                 </>
