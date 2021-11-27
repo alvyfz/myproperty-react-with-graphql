@@ -39,12 +39,13 @@ export default function NavBar() {
         style={{ fontWeight: "600", fontSize: "15px" }}
       >
         <Container>
-          <Navbar.Brand style={{ marginRight: "200px" }}>
+          <Navbar.Brand style={{ marginRight: "16%" }}>
             <Link to="/home">
               {" "}
               <Brand />{" "}
             </Link>
           </Navbar.Brand>
+
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
@@ -82,6 +83,7 @@ export default function NavBar() {
                 CONTACT US
               </Nav.Link>
             </Nav>
+
             <Nav>
               <Nav.Link style={{ marginLeft: "10px" }}>
                 {" "}
