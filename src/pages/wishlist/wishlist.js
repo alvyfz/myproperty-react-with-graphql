@@ -7,7 +7,7 @@ import Error404 from "../../components/error/ErrorNotFound";
 import { Link } from "react-router-dom";
 import { parseCookies } from "nookies";
 
-const QUERY = gql`
+export const QUERY = gql`
   query MyQuery {
     wishlists {
       id

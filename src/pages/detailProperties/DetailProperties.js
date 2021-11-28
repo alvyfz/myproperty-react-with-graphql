@@ -10,7 +10,7 @@ import { parseCookies } from "nookies";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CardProperty1 from "../../components/card/Card";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
-
+import { QUERY } from "../wishlist/wishlist";
 const ADD_WISHLIST = gql`
   mutation MyMutation($property_id: Int!, $user_id: Int!) {
     insert_wishlists_one(
@@ -25,11 +25,15 @@ export default function DetailProperties({ data }) {
   const { id } = useParams();
   const idLogin = parseInt(parseCookies("idLogin").idLogin);
   const [addWishlist, { data: dataAdd, loading: loadingAdd, error: errorAdd }] =
-    useMutation(ADD_WISHLIST, {
-      onError(error) {
-        console.log(error);
-      },
-    });
+    useMutation(
+      ADD_WISHLIST,
+      { refetchQueries: [QUERY] },
+      {
+        onError(error) {
+          console.log(error);
+        },
+      }
+    );
 
   useEffect(() => {
     window.scrollTo(0, 0);
