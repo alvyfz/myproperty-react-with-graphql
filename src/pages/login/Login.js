@@ -173,7 +173,7 @@ const Login = () => {
     e.preventDefault();
     doLogin({
       variables: {
-        email: emailIn,
+        email: emailIn.toLowerCase(),
         password: passwordIn,
       },
     });
@@ -185,7 +185,11 @@ const Login = () => {
     if (validEmail && validName && validPassword1 && validPassword2) {
       insertMessage({
         variables: {
-          object: { name: nameUp, email: emailUp, password: password2Up },
+          object: {
+            name: nameUp,
+            email: emailUp.toLowerCase(),
+            password: password2Up,
+          },
         },
       });
     } else {
