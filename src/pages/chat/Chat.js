@@ -1,5 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { parseCookies } from "nookies";
@@ -18,7 +19,13 @@ import { MDBContainer } from "mdbreact";
 import { MdVerifiedUser } from "react-icons/md";
 import { RiSendPlane2Fill } from "react-icons/ri";
 import "./Chat.css";
-import { gql, useSubscription, useMutation } from "@apollo/client";
+import {
+  gql,
+  useSubscription,
+  useMutation,
+  // useLazyQuery,
+  useQuery,
+} from "@apollo/client";
 import Error404 from "../../components/error/Error404";
 import moment from "moment";
 
@@ -41,27 +48,73 @@ const InsertChat = gql`
   }
 `;
 
-const Chat = () => {
-  const { data, loading, error } = useSubscription(SubscribeChat);
-  const [AddChat, { loading: loadingAdd, error: errorAdd }] =
-    useMutation(InsertChat);
-  const navigate = useNavigate();
-  const idLogin = parseInt(parseCookies("idLogin").idLogin);
-  const [text, setText] = useState(
-    "Hello admin, I am interested in this property. Can I find out more about it?"
-  );
+// const PROPERTIES = gql`
+//   query MyQuery($id: Int!) {
+//     properties_by_pk(id: $id) {
+//       id
+//       img
+//       name
+//       price
+//     }
+//   }
+// `;
 
+const QueryProperties = gql`
+  query MyQuery2 {
+    properties {
+      id
+      img
+      name
+      price
+    }
+  }
+`;
+
+const Chat = () => {
+  const navigate = useNavigate();
+  const { search } = useLocation();
+  const query = new URLSearchParams(search);
+  const idProperty = parseInt(query.get("id"));
+  const idLogin = parseInt(parseCookies("idLogin").idLogin);
+  const { data, error, loading } = useSubscription(SubscribeChat);
+  // const [getProperties, { data: dataProperties, loading: loadingProperties }] =
+  //   useLazyQuery(PROPERTIES);
+  const {
+    data: dataProperty,
+    loading: loadingProperty,
+    error: errorProperty,
+  } = useQuery(QueryProperties);
+  const [AddChat, { error: errorAdd }] = useMutation(InsertChat);
+  const property = dataProperty?.properties.find((v) => v.id === idProperty);
+  const [text, setText] = useState("");
   useEffect(() => {
     if (idLogin === undefined || isNaN(idLogin)) {
       navigate("/login");
     }
   }, []);
+  // useEffect(() => {
+  //   getProperties({ variables: { id: idProperty } });
+  // }, []);
   const scrollContainerStyle = {
     width: "auto",
-    maxHeight: "500px",
+    maxHeight: "400px",
     marginBottom: "20px",
   };
-  if (loading || loadingAdd) {
+
+  useEffect(() => {
+    if (property) {
+      const textIsi = `Hello admin, I am interested in ${property?.name}. Can I find out more about it?`;
+      setText(textIsi);
+    }
+  }, [loadingProperty]);
+  // if (loadingProperties) {
+  //   if (idProperty) {
+  //     const textIsi = `Hello admin, I am interested in ${property?.name}. Can I find out more about it?`;
+  //     setText(textIsi);
+  //   }
+  // }
+  console.log(data?.chats);
+  if (loadingProperty || loading) {
     return (
       <div
         style={{
@@ -76,7 +129,7 @@ const Chat = () => {
       </div>
     );
   }
-  if (error || errorAdd) {
+  if (error || errorAdd || errorProperty) {
     return <Error404 />;
   }
   const handleSubmit = () => {
@@ -88,6 +141,14 @@ const Chat = () => {
     });
     setText("");
   };
+  const formatRupiah = (price) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    }).format(price);
+  };
+
   return (
     <>
       {" "}
@@ -157,7 +218,36 @@ const Chat = () => {
                 </Col>
               </Row>{" "}
             </Container>
+            {isNaN(idProperty) || idProperty === undefined ? null : (
+              <Container
+                style={{
+                  border: "2px solid #E0E0E0",
+                  marginTop: "20px",
+                  marginBottom: "20px",
+                }}
+              >
+                <h5 style={{ margin: "10px" }}>Property</h5>
+
+                <Row style={{ marginBottom: "10px" }}>
+                  <Col lg={4}>
+                    {" "}
+                    <img
+                      alt="photoProperty"
+                      src={property?.img}
+                      height={120}
+                      width={120}
+                      style={{ objectFit: "cover" }}
+                    />
+                  </Col>
+                  <Col lg={7}>
+                    <h5>{property?.name}</h5>
+                    <h4>{formatRupiah(property?.price)}</h4>
+                  </Col>
+                </Row>
+              </Container>
+            )}
           </Col>
+
           <Col lg={8}>
             <Container fluid style={{ border: "2px solid #E0E0E0" }}>
               <img
@@ -197,6 +287,7 @@ const Chat = () => {
                     if (v.user_id === idLogin) {
                       return (
                         <div
+                          key={v.id}
                           style={{
                             backgroundColor: "#092C4C",
                             color: "white",

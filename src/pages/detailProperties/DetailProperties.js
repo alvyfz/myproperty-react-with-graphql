@@ -8,7 +8,6 @@ import { gql, useMutation } from "@apollo/client";
 import Swal from "sweetalert2";
 import { parseCookies } from "nookies";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import CardProperty1 from "../../components/card/Card";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
@@ -99,6 +98,12 @@ export default function DetailProperties({ data }) {
     //   "success"
     // );
   };
+  // const handleBuy = () => {
+  //   setCookie(null, "idProperty", id, {
+  //     maxAge: 15 * 60,
+  //   });
+  //   navigate("/chat");
+  // };
   return (
     <>
       {filtered.map((v) => {
@@ -143,7 +148,7 @@ export default function DetailProperties({ data }) {
                       <br />
                       <hr />
                       <br />
-                      <Button variant="dark" as={Link} to="/chat">
+                      <Button variant="dark" as={Link} to={`/chat?id=${v.id}`}>
                         <tag style={{ fontSize: "20px", margin: "39px" }}>
                           BUY
                         </tag>
