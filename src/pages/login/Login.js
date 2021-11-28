@@ -77,14 +77,18 @@ const Login = () => {
       setCookie(null, "idLogin", dataLogin?.users[0].id, {
         maxAge: 3 * 60 * 60,
       });
-      Swal.fire("Sig In Success!", "You can open wishlist and chat", "success");
+      Swal.fire(
+        "Sign In Success!",
+        "You can open wishlist and chat",
+        "success"
+      );
       navigate("/");
     }
     if (dataLogin?.users.length === 0) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Email or  Password wrong!",
+        text: "Email or  Password is wrong!",
       });
     }
   }, [dataLogin]);
