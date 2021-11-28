@@ -85,8 +85,8 @@ const House = () => {
                 <Col
                   key={v.id}
                   md="auto"
-                  xs="auto"
-                  sm="auto"
+                  xs={6}
+                  sm={6}
                   lg={2}
                   style={{ marginTop: "20px" }}
                 >

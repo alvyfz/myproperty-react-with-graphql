@@ -197,7 +197,7 @@ const ContactUs = () => {
               type="submit"
               variant="light"
               id="button"
-              style={{ width: "630px" }}
+              style={{ maxWidth: "630px" }}
             >
               Submit
             </Button>{" "}
