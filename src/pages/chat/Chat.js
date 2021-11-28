@@ -6,7 +6,6 @@ import { useNavigate } from "react-router";
 import { parseCookies } from "nookies";
 import {
   Container,
-  Figure,
   Spinner,
   Button,
   Col,
@@ -84,7 +83,8 @@ const Chat = () => {
     loading: loadingProperty,
     error: errorProperty,
   } = useQuery(QueryProperties);
-  const [AddChat, { error: errorAdd }] = useMutation(InsertChat);
+  const [AddChat, { error: errorAdd, loading: loadingAdd }] =
+    useMutation(InsertChat);
   const property = dataProperty?.properties.find((v) => v.id === idProperty);
   const [text, setText] = useState("");
   useEffect(() => {
@@ -114,21 +114,21 @@ const Chat = () => {
   //   }
   // }
   console.log(data?.chats);
-  if (loadingProperty || loading) {
-    return (
-      <div
-        style={{
-          margin: "100px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "inherit",
-        }}
-      >
-        <Spinner animation="border" />
-      </div>
-    );
-  }
+  // if (loadingProperty) {
+  //   return (
+  //     <div
+  //       style={{
+  //         margin: "100px",
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //         height: "inherit",
+  //       }}
+  //     >
+  //       <Spinner animation="border" />
+  //     </div>
+  //   );
+  // }
   if (error || errorAdd || errorProperty) {
     return <Error404 />;
   }
@@ -171,7 +171,7 @@ const Chat = () => {
             <Container style={{ border: "2px solid #E0E0E0" }}>
               <Row style={{ margin: "10px" }}>
                 <Col lg={4}>
-                  <Figure.Image
+                  {/* <Figure.Image
                     width={60}
                     height={60}
                     alt="171x180"
@@ -180,7 +180,7 @@ const Chat = () => {
                       objectFit: "contain",
                       borderRadius: "50%",
                     }}
-                  />
+                  /> */}
                 </Col>
               </Row>
               <Row>
@@ -210,7 +210,7 @@ const Chat = () => {
                     height: "28px",
                     fontWeight: "500",
                     fontSize: "20px",
-                    marginBottom: "10px",
+                    marginBottom: "20px",
                     marginTop: "10px",
                   }}
                 >
@@ -226,133 +226,160 @@ const Chat = () => {
                   marginBottom: "20px",
                 }}
               >
-                <h5 style={{ margin: "10px" }}>Property</h5>
-
-                <Row style={{ marginBottom: "10px" }}>
-                  <Col lg={4}>
+                {loadingProperty ? (
+                  <Spinner animation="border" />
+                ) : (
+                  <>
                     {" "}
-                    <img
-                      alt="photoProperty"
-                      src={property?.img}
-                      height={120}
-                      width={120}
-                      style={{ objectFit: "cover" }}
-                    />
-                  </Col>
-                  <Col lg={7}>
-                    <h5>{property?.name}</h5>
-                    <h4>{formatRupiah(property?.price)}</h4>
-                  </Col>
-                </Row>
+                    <h5 style={{ margin: "10px" }}>Property</h5>
+                    <Row style={{ marginBottom: "10px" }}>
+                      <Col lg={4}>
+                        {" "}
+                        <img
+                          alt="photoProperty"
+                          src={property?.img}
+                          height={120}
+                          width={120}
+                          style={{ objectFit: "cover" }}
+                        />
+                      </Col>
+                      <Col lg={7}>
+                        <h5>{property?.name}</h5>
+                        <h4>{formatRupiah(property?.price)}</h4>
+                      </Col>
+                    </Row>{" "}
+                  </>
+                )}
               </Container>
             )}
           </Col>
 
           <Col lg={8}>
             <Container fluid style={{ border: "2px solid #E0E0E0" }}>
-              <img
-                alt="brand"
-                src="/logo192.png"
-                height={40}
-                style={{ margin: "10px" }}
-              />{" "}
-              <MdVerifiedUser style={{ color: "#27AE60" }} />
-              <MDBContainer>
+              {loading ? (
                 <div
-                  className="scrollbar scrollbar-secondary  mt-5 mx-auto"
-                  style={scrollContainerStyle}
+                  style={{
+                    margin: "100px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "inherit",
+                  }}
                 >
-                  <div
-                    style={{
-                      backgroundColor: "#F2F2F2",
-                      borderRadius: "25px",
-                      maxWidth: "600px",
-                    }}
-                  >
-                    {" "}
-                    <p style={{ margin: "20px", marginBottom: "0px" }}>
-                      Hello, if you are interested in the property, please
-                      inquire further with us. We are ready to serve you and
-                      make transactions easier. We are available 24/7.
-                    </p>
-                    {/* <Row>
+                  <Spinner animation="border" />
+                </div>
+              ) : (
+                <>
+                  {" "}
+                  <img
+                    alt="brand"
+                    src="/logo192.png"
+                    height={40}
+                    style={{ margin: "10px" }}
+                  />
+                  <MdVerifiedUser style={{ color: "#27AE60" }} />
+                  <MDBContainer>
+                    <div
+                      className="scrollbar scrollbar-secondary  mt-5 mx-auto"
+                      style={scrollContainerStyle}
+                    >
+                      <div
+                        style={{
+                          backgroundColor: "#F2F2F2",
+                          borderRadius: "25px",
+                          maxWidth: "600px",
+                        }}
+                      >
+                        {" "}
+                        <p style={{ margin: "20px", marginBottom: "0px" }}>
+                          Hello, if you are interested in the property, please
+                          inquire further with us. We are ready to serve you and
+                          make transactions easier. We are available 24/7.
+                        </p>
+                        {/* <Row>
                       {" "}
                       <Col lg={10}></Col>{" "}
                       <Col style={{ fontSize: "12px" }} lg={2}>
                         20.18{" "}
                       </Col>
                     </Row> */}
-                  </div>{" "}
-                  {data?.chats.map((v) => {
-                    if (v.user_id === idLogin) {
-                      return (
-                        <div
-                          key={v.id}
-                          style={{
-                            backgroundColor: "#092C4C",
-                            color: "white",
-                            borderRadius: "25px",
-                            maxWidth: "600px",
-                          }}
-                        >
-                          <p
-                            style={{
-                              margin: "20px",
-                              marginTop: "10px",
-                              marginBottom: "0px",
-                            }}
-                          >
-                            {v.text}
-                          </p>
-                          <Row>
-                            {" "}
-                            <Col
+                      </div>{" "}
+                      {data?.chats.map((v) => {
+                        if (v.user_id === idLogin) {
+                          return (
+                            <div
+                              key={v.id}
                               style={{
-                                fontSize: "12px",
-                                textAlign: "right",
-                                marginLeft: "10px",
-                                // align: "left",
+                                backgroundColor: "#092C4C",
+                                color: "white",
+                                borderRadius: "25px",
+                                maxWidth: "600px",
                               }}
-                              xs={11}
                             >
-                              {moment(v.created_at).format("lll")}
-                            </Col>
-                          </Row>
-                        </div>
-                      );
-                    }
-                  })}
-                </div>
-              </MDBContainer>
-              <form onSubmit={handleSubmit}>
-                {" "}
-                <InputGroup className="mb-3">
-                  <FormControl
-                    as="textarea"
-                    style={{
-                      borderRadius: "20px",
-                      borderColor: "#092C4C",
-                    }}
-                    size="sm"
-                    placeholder="write a message...."
-                    aria-label="write a message...."
-                    aria-describedby="basic-addon2"
-                    onChange={(e) => {
-                      setText(e.target.value);
-                    }}
-                    value={text}
-                  />
-                  <Button
-                    variant="outadsa"
-                    id="button-addon2"
-                    size="sm"
-                    type="submit"
-                    onSubmit={handleSubmit}
-                  >
-                    <RiSendPlane2Fill size={25} color="#092C4C" />
-                  </Button>
-                </InputGroup>
-              </form>
+                              <p
+                                style={{
+                                  margin: "20px",
+                                  marginTop: "10px",
+                                  marginBottom: "0px",
+                                }}
+                              >
+                                {v.text}
+                              </p>
+                              <Row>
+                                {" "}
+                                <Col
+                                  style={{
+                                    fontSize: "12px",
+                                    textAlign: "right",
+                                    marginLeft: "10px",
+                                    // align: "left",
+                                  }}
+                                  xs={11}
+                                >
+                                  {moment(v.created_at).format("lll")}
+                                </Col>
+                              </Row>
+                            </div>
+                          );
+                        }
+                      })}
+                    </div>
+                  </MDBContainer>
+                  <form onSubmit={handleSubmit}>
+                    {" "}
+                    <InputGroup className="mb-3">
+                      <FormControl
+                        as="textarea"
+                        style={{
+                          borderRadius: "20px",
+                          borderColor: "#092C4C",
+                        }}
+                        size="sm"
+                        placeholder="write a message...."
+                        aria-label="write a message...."
+                        aria-describedby="basic-addon2"
+                        onChange={(e) => {
+                          setText(e.target.value);
+                        }}
+                        value={text}
+                      />
+                      {loadingAdd ? (
+                        <Spinner size="sm" animation="grow" />
+                      ) : (
+                        <Button
+                          variant="outadsa"
+                          id="button-addon2"
+                          size="sm"
+                          type="submit"
+                          onSubmit={handleSubmit}
+                        >
+                          <RiSendPlane2Fill size={25} color="#092C4C" />
+                        </Button>
+                      )}
+                    </InputGroup>
+                  </form>{" "}
+                </>
+              )}
             </Container>
           </Col>
         </Row>

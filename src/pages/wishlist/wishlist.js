@@ -78,7 +78,7 @@ function Wishlist() {
       navigate("/login");
     }
   }, []);
-  if (loading || loadingDelete) {
+  if (loading) {
     return (
       <div
         style={{
@@ -187,7 +187,11 @@ function Wishlist() {
                           fontSize: "16px",
                         }}
                       >
-                        Delete wishlist
+                        {loadingDelete ? (
+                          <Spinner animation="border" size="sm" />
+                        ) : (
+                          <div>Delete wishlist</div>
+                        )}
                       </Button>{" "}
                     </Col>
                   </Row>

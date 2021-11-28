@@ -113,22 +113,22 @@ const Login = () => {
       navigate("/login");
     }
   }, [data]);
-  if (dataLoading || loadingM) {
-    return (
-      <div
-        style={{
-          margin: "100px",
-          // textAlign: "center",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "inherit",
-        }}
-      >
-        <Spinner animation="border" />
-      </div>
-    );
-  }
+  // if (dataLoading || loadingM) {
+  //   return (
+  //     <div
+  //       style={{
+  //         margin: "100px",
+  //         // textAlign: "center",
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //         height: "inherit",
+  //       }}
+  //     >
+  //       <Spinner animation="border" />
+  //     </div>
+  //   );
+  // }
 
   const handleChangeNameUp = (e) => {
     setNameUp(e.target.value);
@@ -273,7 +273,11 @@ const Login = () => {
                       width: "auto !important",
                     }}
                   >
-                    Sign In
+                    {dataLoading ? (
+                      <Spinner animation="border" size="sm" />
+                    ) : (
+                      <div>Sign In</div>
+                    )}
                   </Button>{" "}
                 </Row>
               </form>
@@ -357,7 +361,11 @@ const Login = () => {
                       width: "auto !important",
                     }}
                   >
-                    Sign Up
+                    {loadingM ? (
+                      <Spinner animation="border" size="sm" />
+                    ) : (
+                      <div>Sign Up</div>
+                    )}
                   </Button>{" "}
                   <div
                     style={{

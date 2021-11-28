@@ -61,22 +61,22 @@ export default function DetailProperties({ data }) {
     }
   });
 
-  if (loadingAdd) {
-    return (
-      <div
-        style={{
-          margin: "100px",
-          // textAlign: "center",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "inherit",
-        }}
-      >
-        <Spinner animation="border" />
-      </div>
-    );
-  }
+  // if (loadingAdd) {
+  //   return (
+  //     <div
+  //       style={{
+  //         margin: "100px",
+  //         // textAlign: "center",
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //         height: "inherit",
+  //       }}
+  //     >
+  //       <Spinner animation="border" />
+  //     </div>
+  //   );
+  // }
   const formatRupiah = (price) => {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
@@ -154,7 +154,11 @@ export default function DetailProperties({ data }) {
                         onClick={() => handleAddWishlist(v.id)}
                       >
                         <tag style={{ fontSize: "20px" }}>
-                          <BsHeartFill />
+                          {loadingAdd ? (
+                            <Spinner animation="border" size="sm" />
+                          ) : (
+                            <BsHeartFill />
+                          )}
                           &nbsp; ADD WISHLIST
                         </tag>
                       </Button>

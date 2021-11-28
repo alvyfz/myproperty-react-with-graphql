@@ -49,22 +49,22 @@ const ContactUs = () => {
     setMessage(e.target.value);
   };
 
-  if (loading) {
-    return (
-      <div
-        style={{
-          margin: "100px",
-          // textAlign: "center",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "inherit",
-        }}
-      >
-        <Spinner animation="border" />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div
+  //       style={{
+  //         margin: "100px",
+  //         // textAlign: "center",
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //         height: "inherit",
+  //       }}
+  //     >
+  //       <Spinner animation="border" />
+  //     </div>
+  //   );
+  // }
 
   if (error) {
     return <Error404 />;
@@ -155,6 +155,7 @@ const ContactUs = () => {
                 type="text"
                 placeholder="Your Name Here..."
                 value={name}
+                required
               />
               <Form.Text className="formText" style={{ color: "red" }}>
                 {errorName}
@@ -175,6 +176,7 @@ const ContactUs = () => {
                 placeholder="Your Email Here..."
                 onChange={handleChangeEmail}
                 value={email}
+                required
               />
               <Form.Text className="formText" style={{ color: "red" }}>
                 {errorEmail}
@@ -187,6 +189,7 @@ const ContactUs = () => {
             >
               {/* <Form.Label>Message</Form.Label> */}
               <Form.Control
+                required
                 id="message"
                 as="textarea"
                 rows={3}
@@ -204,7 +207,11 @@ const ContactUs = () => {
                 width: "100%",
               }}
             >
-              Submit
+              {loading ? (
+                <Spinner animation="border" size="sm" />
+              ) : (
+                <div>Submit</div>
+              )}
             </Button>{" "}
           </form>
         </Col>

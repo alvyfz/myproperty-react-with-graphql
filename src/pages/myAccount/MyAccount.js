@@ -104,7 +104,7 @@ const MyAccount = () => {
     }
   }, [dataUpdate]);
 
-  if (loading || loadingUpdate || loadingPassword) {
+  if (loading) {
     return (
       <div
         style={{
@@ -280,6 +280,7 @@ const MyAccount = () => {
                         setName={setName}
                         name={name}
                         handleSubmit={handleUpdateName}
+                        loading={loadingUpdate}
                       />
                     </Col>
                   </Row>
@@ -311,6 +312,7 @@ const MyAccount = () => {
                     password2={password2}
                     handlePassword2={handleChangePassword2}
                     errorPassword2={errorPassword2}
+                    loading={loadingPassword}
                   />
                 </Col>
               </Row>
@@ -395,7 +397,11 @@ function ChangePasswordModals(props) {
             variant="dark"
             onSubmit={props.handleSubmit}
           >
-            Save Changes
+            {props.loading ? (
+              <Spinner animation="border" size="sm" />
+            ) : (
+              <div>Save Changes</div>
+            )}
           </Button>
         </form>
       </Modal.Body>
@@ -441,7 +447,11 @@ function MyVerticallyCenteredModal(props) {
             variant="dark"
             onSubmit={props.handleSubmit}
           >
-            Save Changes
+            {props.loading ? (
+              <Spinner animation="border" size="sm" />
+            ) : (
+              <div>Save Changes</div>
+            )}
           </Button>
         </form>
       </Modal.Body>
