@@ -3,7 +3,7 @@ import { Carousel, Container, Row, Col, Spinner } from "react-bootstrap";
 import CardProperty1 from "../../components/card/Card";
 import { gql, useQuery } from "@apollo/client";
 import { Swiper, SwiperSlide } from "swiper/react";
-// import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import AOS from "aos";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -219,8 +219,8 @@ function Home() {
             })}
           </Swiper>
           <div>
-            {/* {" "}
-            <BsArrowLeft size={20} /> <BsArrowRight size={20} />{" "} */}
+            {" "}
+            <BsArrowLeft size={20} /> <BsArrowRight size={20} />{" "}
           </div>
         </Container>
       </Container>

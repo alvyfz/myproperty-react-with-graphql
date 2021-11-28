@@ -10,7 +10,7 @@ import { parseCookies } from "nookies";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import CardProperty1 from "../../components/card/Card";
-// import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 const ADD_WISHLIST = gql`
   mutation MyMutation($property_id: Int!, $user_id: Int!) {
@@ -264,7 +264,7 @@ export default function DetailProperties({ data }) {
                   })}
                 </Swiper>
                 <div style={{ textAlign: "center" }}>
-                  {/* <BsArrowLeft size={20} /> <BsArrowRight size={20} />{" "} */}
+                  <BsArrowLeft size={20} /> <BsArrowRight size={20} />{" "}
                 </div>
               </Container>
             </Container>

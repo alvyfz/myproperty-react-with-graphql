@@ -119,7 +119,10 @@ const ContactUs = () => {
           </Carousel>
         </Col>{" "} */}
         <Col
-          lg={6}
+          sm="auto"
+          md="auto"
+          xs="auto"
+          lg={5}
           style={{
             backgroundColor: "#E0E0E0",
             marginBottom: "100px",
@@ -197,7 +200,9 @@ const ContactUs = () => {
               type="submit"
               variant="light"
               id="button"
-              style={{ maxWidth: "630px" }}
+              style={{
+                width: "100%",
+              }}
             >
               Submit
             </Button>{" "}

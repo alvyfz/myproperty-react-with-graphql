@@ -209,7 +209,7 @@ const Login = () => {
         <br />
         <h2>Sorry, You have to login first. </h2>
       </div>
-      <Row className="justify-content-center">
+      <Row className="justify-content-center" style={{ margin: "20px" }}>
         <Col lg={3}>
           <Tabs
             // style={{ backgroundColor: "gray", color: "white" }}
@@ -255,23 +255,22 @@ const Login = () => {
                 </p>
                 <Row
                   className="justify-content-center"
-                  style={{ margin: "20px" }}
+                  style={{ margin: "20px 10px 20px 10px" }}
                 >
                   {" "}
-                  <Col lg={9}>
-                    <Button
-                      type="submit"
-                      onSubmit={handleLogin}
-                      variant="dark"
-                      style={{
-                        paddingLeft: "70px",
-                        paddingRight: "70px",
-                        alignContent: "center",
-                      }}
-                    >
-                      Sign In
-                    </Button>{" "}
-                  </Col>
+                  <Button
+                    type="submit"
+                    onSubmit={handleLogin}
+                    variant="dark"
+                    style={{
+                      paddingLeft: "70px",
+                      paddingRight: "70px",
+                      alignContent: "center",
+                      width: "auto !important",
+                    }}
+                  >
+                    Sign In
+                  </Button>{" "}
                 </Row>
               </form>
             </Tab>
@@ -340,23 +339,22 @@ const Login = () => {
                 </FloatingLabel>
                 <Row
                   className="justify-content-center"
-                  style={{ margin: "20px" }}
+                  style={{ margin: "20px 10px 20px 10px" }}
                 >
                   {" "}
-                  <Col lg={9}>
-                    <Button
-                      onSubmit={handleSignup}
-                      type="submit"
-                      variant="dark"
-                      style={{
-                        paddingLeft: "70px",
-                        paddingRight: "70px",
-                        alignContent: "center",
-                      }}
-                    >
-                      Sign Up
-                    </Button>{" "}
-                  </Col>
+                  <Button
+                    onSubmit={handleSignup}
+                    type="submit"
+                    variant="dark"
+                    style={{
+                      paddingLeft: "70px",
+                      paddingRight: "70px",
+                      alignContent: "center",
+                      width: "auto !important",
+                    }}
+                  >
+                    Sign Up
+                  </Button>{" "}
                   <div
                     style={{
                       marginTop: "20px",

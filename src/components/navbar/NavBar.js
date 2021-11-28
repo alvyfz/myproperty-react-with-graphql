@@ -78,10 +78,10 @@ export default function NavBar() {
               <Nav.Link
                 as={Link}
                 to="/contact-us"
-                style={{ MarginLeft: "15px", marginRight: "15px" }}
+                style={{ marginLeft: "15px", marginRight: "15px" }}
               >
                 CONTACT US
-              </Nav.Link>
+              </Nav.Link>{" "}
             </Nav>
 
             <Nav>
@@ -108,7 +108,7 @@ export default function NavBar() {
               <NavDropdown
                 title={<BsPerson size={20} />}
                 id="collasible-nav-dropdown"
-                style={{ marginLeft: "10px", marginRight: "15px" }}
+                style={{ marginLeft: "10px" }}
               >
                 {idLogin === undefined || isNaN(idLogin) ? (
                   <>
