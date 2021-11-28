@@ -98,12 +98,7 @@ export default function DetailProperties({ data }) {
     //   "success"
     // );
   };
-  // const handleBuy = () => {
-  //   setCookie(null, "idProperty", id, {
-  //     maxAge: 15 * 60,
-  //   });
-  //   navigate("/chat");
-  // };
+
   return (
     <>
       {filtered.map((v) => {
