@@ -17,7 +17,7 @@ import { gql, useMutation, useLazyQuery } from "@apollo/client";
 // import { useDispatch } from "react-redux";
 // import { addId } from "../../stores/Id";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { setCookie } from "nookies";
 
 const QUERY_LOGIN = gql`
@@ -278,6 +278,19 @@ const Login = () => {
                     ) : (
                       <div>Sign In</div>
                     )}
+                  </Button>{" "}
+                  <Button
+                    as={Link}
+                    to="/"
+                    variant="dawdad"
+                    style={{
+                      paddingLeft: "70px",
+                      paddingRight: "70px",
+                      alignContent: "center",
+                      width: "auto !important",
+                    }}
+                  >
+                    <div>Home</div>
                   </Button>{" "}
                 </Row>
               </form>
