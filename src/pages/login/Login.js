@@ -211,7 +211,7 @@ const Login = () => {
       <div style={{ textAlign: "center", margin: "50px" }}>
         <Brand />
         <br />
-        <h2>Sorry, You have to login first. </h2>
+        {/* <h2>Sorry, You have to login first. </h2> */}
       </div>
       <Row className="justify-content-center" style={{ margin: "20px" }}>
         <Col lg={3}>
