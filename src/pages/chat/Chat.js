@@ -92,6 +92,9 @@ const Chat = () => {
       navigate("/login");
     }
   }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   // useEffect(() => {
   //   getProperties({ variables: { id: idProperty } });
   // }, []);

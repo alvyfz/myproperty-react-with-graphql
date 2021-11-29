@@ -78,6 +78,9 @@ function Wishlist() {
       navigate("/login");
     }
   }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   if (loading) {
     return (
       <div

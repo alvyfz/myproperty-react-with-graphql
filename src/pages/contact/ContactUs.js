@@ -7,7 +7,7 @@ import {
   Container,
   FloatingLabel,
 } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { gql, useMutation } from "@apollo/client";
 import Swal from "sweetalert2";
 import Error404 from "../../components/error/Error404";
@@ -28,7 +28,9 @@ const ContactUs = () => {
   const nameRegex = /^[a-zA-Z\s]{2,40}$/;
   const emailRegex = /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/;
   const [message, setMessage] = useState("");
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleChangeName = (e) => {
     setName(e.target.value);
     if (!nameRegex.test(e.target.value)) {

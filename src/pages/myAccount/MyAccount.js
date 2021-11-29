@@ -75,6 +75,9 @@ const MyAccount = () => {
     });
   }, []);
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     if (dataUpdate?.update_users.returning.length === 1) {
       setPassword1("");
       setPassword2("");
