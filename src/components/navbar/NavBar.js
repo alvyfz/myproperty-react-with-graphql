@@ -39,7 +39,7 @@ export default function NavBar() {
         style={{ fontWeight: "600", fontSize: "15px" }}
       >
         <Container>
-          <Navbar.Brand style={{ marginRight: "16%" }}>
+          <Navbar.Brand style={{ marginRight: "18%" }}>
             <Link to="/home">
               {" "}
               <Brand />{" "}

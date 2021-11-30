@@ -1,7 +1,7 @@
 export default function Brand() {
   return (
     <svg
-      height="60"
+      height="50"
       viewBox="0 0 200 67"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

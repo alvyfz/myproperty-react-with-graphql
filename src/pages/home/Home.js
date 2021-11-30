@@ -65,6 +65,7 @@ function Home() {
       <Carousel>
         <Carousel.Item interval={700}>
           <img
+            data-testid="button"
             style={{ objectFit: "cover", WebkitFilter: "brightness(75%)" }}
             sizes="cover"
             height="643px"
