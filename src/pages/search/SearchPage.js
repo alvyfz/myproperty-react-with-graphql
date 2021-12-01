@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import CardProperty1 from "../../components/card/Card";
 import AOS from "aos";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 import { addList } from "../../stores/ListProperty";
 
@@ -99,6 +100,7 @@ const Search = () => {
                   sm="auto"
                   lg={2}
                   style={{ marginTop: "20px" }}
+                  data-aos="zoom-in-up"
                 >
                   <CardProperty1
                     name={v.name}
@@ -106,7 +108,6 @@ const Search = () => {
                     img={v.img}
                     category={v.category.name}
                     idx={v.id}
-                    data-aos="zoom-in-up"
                   />
                 </Col>
               );
@@ -117,7 +118,10 @@ const Search = () => {
               <h2>Name or category property not found</h2>
               <h3>
                 {" "}
-                Go home ? <Button variant="dark">Home</Button>
+                Go home ?{" "}
+                <Button as={Link} to="/" variant="dark">
+                  Home
+                </Button>
               </h3>
             </Container>
           )}

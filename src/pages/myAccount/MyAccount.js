@@ -390,22 +390,27 @@ function ChangePasswordModals(props) {
               {props.errorPassword2}
             </Form.Text>
           </FloatingLabel>
-          <Button size="sm" variant="outline-dark" onClick={props.onHide}>
-            Cancel
-          </Button>
-          &nbsp;
-          <Button
-            size="sm"
-            type="submit"
-            variant="dark"
-            onSubmit={props.handleSubmit}
-          >
-            {props.loading ? (
-              <Spinner animation="border" size="sm" />
-            ) : (
-              <div>Save Changes</div>
-            )}
-          </Button>
+          <Row>
+            <Col lg={6}> </Col>
+            <Col>
+              <Button size="sm" variant="outline-dark" onClick={props.onHide}>
+                Cancel
+              </Button>
+              &nbsp;
+              <Button
+                size="sm"
+                type="submit"
+                variant="dark"
+                onSubmit={props.handleSubmit}
+              >
+                {props.loading ? (
+                  <Spinner animation="border" size="sm" />
+                ) : (
+                  <div>Save Changes</div>
+                )}
+              </Button>
+            </Col>
+          </Row>
         </form>
       </Modal.Body>
     </Modal>
@@ -440,22 +445,27 @@ function MyVerticallyCenteredModal(props) {
               onChange={(e) => props.setName(e.target.value)}
             />
           </FloatingLabel>
-          <Button size="sm" variant="outline-dark" onClick={props.onHide}>
-            Cancel
-          </Button>
-          &nbsp;
-          <Button
-            size="sm"
-            type="submit"
-            variant="dark"
-            onSubmit={props.handleSubmit}
-          >
-            {props.loading ? (
-              <Spinner animation="border" size="sm" />
-            ) : (
-              <div>Save Changes</div>
-            )}
-          </Button>
+          <Row>
+            <Col lg={6}> </Col>
+            <Col>
+              <Button size="sm" variant="outline-dark" onClick={props.onHide}>
+                Cancel
+              </Button>
+              &nbsp;
+              <Button
+                size="sm"
+                type="submit"
+                variant="dark"
+                onSubmit={props.handleSubmit}
+              >
+                {props.loading ? (
+                  <Spinner animation="border" size="sm" />
+                ) : (
+                  <div>Save Changes</div>
+                )}
+              </Button>
+            </Col>
+          </Row>
         </form>
       </Modal.Body>
     </Modal>

@@ -1,46 +1,48 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
+import AOS from "aos";
+
 import { Container, Spinner, Button, Col, Row } from "react-bootstrap";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import Error404 from "../../components/error/ErrorNotFound";
 import { Link } from "react-router-dom";
 import { parseCookies } from "nookies";
 
-export const QUERY = gql`
-  query MyQuery {
-    wishlists {
-      id
-      property_id
-      property {
-        description
-        id
-        name
-        img
-        price
-      }
-      user {
-        id
-      }
-      user_id
-    }
-  }
-`;
-// const QUERY_LAZY = gql`
-//   query MyQuery($id_user: Int!) {
-//     wishlists(where: { user_id: { _eq: $id_user } }) {
+// export const QUERY = gql`
+//   query MyQuery {
+//     wishlists {
 //       id
+//       property_id
 //       property {
+//         description
 //         id
-//         img
 //         name
+//         img
 //         price
 //       }
-//       property_id
+//       user {
+//         id
+//       }
 //       user_id
 //     }
 //   }
 // `;
+const QUERY_LAZY = gql`
+  query MyQuery($id_user: Int!) {
+    wishlists(where: { user_id: { _eq: $id_user } }) {
+      id
+      property {
+        id
+        img
+        name
+        price
+      }
+      property_id
+      user_id
+    }
+  }
+`;
 
 const DELETE = gql`
   mutation MyMutation($id: Int!) {
@@ -52,34 +54,37 @@ const DELETE = gql`
 
 function Wishlist() {
   // window.location.reload(false);
-  const { data, loading, error } = useQuery(QUERY);
-  // const [getData, { data, loading }] = useLazyQuery(QUERY_LAZY);
+  const id = parseInt(parseCookies("idLogin").idLogin);
+  const { data, loading, error, refetch } = useQuery(QUERY_LAZY, {
+    variables: { id_user: id },
+  });
+  // const [getData, { data, loading, refetch }] = useLazyQuery(QUERY_LAZY);
 
   const [deleteWishlist, { loading: loadingDelete, errorDel }] = useMutation(
-    DELETE,
-    {
-      refetchQueries: [QUERY],
-    }
+    DELETE
+    // {
+    //   refetchQueries: [QUERY],
+    // }
   );
 
   const navigate = useNavigate();
-  const id = parseInt(parseCookies("idLogin").idLogin);
+
   const wishlist = data?.wishlists;
 
-  // useEffect(() => {
-  //   getData({
-  //     variables: {
-  //       id_user: id,
-  //     },
-  //   });
-  // }, [() => onDelete]);
   useEffect(() => {
     if (id === undefined || isNaN(id)) {
       navigate("/login");
     }
+    refetch({ id_user: id });
+    console.log("ini get data");
   }, []);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
   }, []);
   if (loading) {
     return (
@@ -101,13 +106,13 @@ function Wishlist() {
   if (errorDel || error) {
     return <Error404 />;
   }
-  const filtered = wishlist?.filter((v) => {
-    if (v?.user_id === id) {
-      return true;
-    } else {
-      return false;
-    }
-  });
+  // const filtered = wishlist?.filter((v) => {
+  //   if (v?.user_id === id) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // });
   const formatRupiah = (price) => {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
@@ -115,8 +120,9 @@ function Wishlist() {
       minimumFractionDigits: 0,
     }).format(price);
   };
-  const onDelete = (idx) => {
-    deleteWishlist({ variables: { id: idx } });
+  const onDelete = async (idx) => {
+    await deleteWishlist({ variables: { id: idx } });
+    refetch({ id_user: id });
   };
 
   return (
@@ -143,8 +149,8 @@ function Wishlist() {
         }}
       >
         <Row>
-          {filtered?.length > 0 ? (
-            filtered?.map((v) => {
+          {wishlist?.length > 0 ? (
+            wishlist?.map((v) => {
               return (
                 <Col
                   key={v.property.id}
@@ -154,7 +160,7 @@ function Wishlist() {
                   lg={9}
                   style={{ marginTop: "20px", textAlign: "left" }}
                 >
-                  <Row>
+                  <Row data-aos="zoom-in-up">
                     <Col lg={3}>
                       <img
                         alt="img properties"
@@ -211,9 +217,9 @@ function Wishlist() {
               <h2>You don't have a wishlist.</h2>
               <h3>
                 {" "}
-                Go home ?{" "}
-                <Button as={Link} to="/" variant="dark">
-                  Home
+                Go properties ?{" "}
+                <Button as={Link} to="/properties" variant="dark">
+                  Properties
                 </Button>
               </h3>
             </Container>
