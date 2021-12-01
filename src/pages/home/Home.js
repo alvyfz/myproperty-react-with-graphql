@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { addList } from "../../stores/ListProperty";
 import Error404 from "../../components/error/Error404";
 
-const QUERY_PROPERTIES = gql`
+export const QUERY_PROPERTIES = gql`
   query MyQuery {
     properties {
       price
@@ -65,7 +65,7 @@ function Home() {
       <Carousel>
         <Carousel.Item interval={700}>
           <img
-            data-testid="button"
+            data-testid="corousel1"
             style={{ objectFit: "cover", WebkitFilter: "brightness(75%)" }}
             sizes="cover"
             height="643px"
@@ -81,6 +81,7 @@ function Home() {
         </Carousel.Item>
         <Carousel.Item interval={500}>
           <img
+            data-testid="corousel2"
             style={{ objectFit: "cover" }}
             height="643px"
             className="d-block w-100"
@@ -95,6 +96,7 @@ function Home() {
         </Carousel.Item>
         <Carousel.Item>
           <img
+            data-testid="corousel3"
             style={{ objectFit: "cover", WebkitFilter: "brightness(75%)" }}
             height="643px"
             className="d-block w-100"
@@ -140,6 +142,7 @@ function Home() {
                   sm={6}
                   lg={2}
                   style={{ marginTop: "20px" }}
+                  data-testid="cardApartment"
                 >
                   <CardProperty1
                     name={v.name}
@@ -209,7 +212,7 @@ function Home() {
             {data?.properties.map((v) => {
               if (v.category_id === 1) {
                 return (
-                  <SwiperSlide key={v.id}>
+                  <SwiperSlide key={v.id} data-testid="cardHouse">
                     {" "}
                     <CardProperty1
                       idx={v.id}

@@ -8,7 +8,7 @@ import { gql, useQuery } from "@apollo/client";
 import { addList } from "../../stores/ListProperty";
 import Error404 from "../../components/error/Error404";
 
-const QUERY = gql`
+export const QUERY = gql`
   query MyQuery {
     properties {
       price
@@ -68,7 +68,7 @@ const Properties = () => {
           textAlign: "center",
         }}
       >
-        <div style={{ paddingTop: "60px" }}>
+        <div style={{ paddingTop: "60px" }} data-testid="title">
           <h2>PROPERTIES</h2>
           <h5>PROPERTIES PRODUCT</h5>
         </div>
@@ -90,6 +90,7 @@ const Properties = () => {
                 sm={6}
                 lg={2}
                 style={{ marginTop: "20px" }}
+                data-testid="card"
               >
                 <CardProperty1
                   name={v.name}

@@ -17,6 +17,7 @@ export default function CardProperty1({ name, price, img, idx, category }) {
           variant="top"
           src={img}
           style={{ height: "216px", objectFit: "cover" }}
+          alt="cardImg"
         />
         <Card.Body>
           <Row style={{ fontSize: "14px" }}>

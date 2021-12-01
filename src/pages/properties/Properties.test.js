@@ -1,16 +1,16 @@
 import { render, screen, act } from "@testing-library/react";
-import Home from "./Home";
+import Properties from "./Properties";
 import store, { persistor } from "../../apps/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { MemoryRouter } from "react-router-dom";
 import { MockedProvider } from "@apollo/client/testing";
-import { QUERY_PROPERTIES } from "./Home";
+import { QUERY } from "./Properties";
 
 const mocks = [
   {
     request: {
-      query: QUERY_PROPERTIES,
+      query: QUERY,
       variables: {},
     },
     result: {
@@ -50,8 +50,8 @@ const Wrapper = () => {
     <MockedProvider mocks={mocks} addTypename={false}>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <MemoryRouter initialEntries={["/"]}>
-            <Home />
+          <MemoryRouter initialEntries={["/properties"]}>
+            <Properties />
           </MemoryRouter>
         </PersistGate>
       </Provider>
@@ -59,75 +59,47 @@ const Wrapper = () => {
   );
 };
 
-// test("component carousel have image 1", () => {
-//   const { getByTestId } = render(<Wrapper />);
-//   //   const scrollToSpy = jest.fn();
-//   //   window.scrollTo = scrollToSpy;
-//   const img = getByTestId("corousel1");
-
-//   expect(img).toBeInTheDocument();
-// });
-// test("component have Image avatar", () => {
-//   render(<Wrapper />);
-
-//   const img = screen.getByAltText(/First slide/);
-
-//   expect(img).toBeInTheDocument();
-// });
-
-test("image carousel 1", async () => {
+test("Title House page", async () => {
   await act(async () => render(<Wrapper />));
 
-  const img = await screen.findByTestId("corousel1");
-  expect(img).toBeInTheDocument();
-});
-test("caption carousel 1", async () => {
-  await act(async () => render(<Wrapper />));
-
-  const text = await screen.findByText(/Discover Design of/);
+  const text = await screen.findByTestId("title");
   expect(text).toBeInTheDocument();
 });
 
-test("image carousel 2", async () => {
+test("Card component", async () => {
   await act(async () => render(<Wrapper />));
 
-  const img = await screen.findByTestId("corousel2");
-  expect(img).toBeInTheDocument();
+  const card = await screen.findAllByTestId("card");
+  expect(card.length).toEqual(2);
 });
-test("caption carousel 2", async () => {
+
+test("Card name house component", async () => {
   await act(async () => render(<Wrapper />));
 
-  const text = await screen.findByText(/Discover Property in/);
+  const text = await screen.findByText(/rumahku/);
   expect(text).toBeInTheDocument();
 });
 
-test("image carousel 3", async () => {
+test("Card price house component", async () => {
   await act(async () => render(<Wrapper />));
 
-  const img = await screen.findByTestId("corousel3");
-  expect(img).toBeInTheDocument();
-});
-test("caption carousel 3", async () => {
-  await act(async () => render(<Wrapper />));
-
-  const text = await screen.findByText(/Trending Properties Near/);
+  const text = await screen.findByText(/Rp 999.999.999/);
   expect(text).toBeInTheDocument();
 });
 
-test("Title list card apartement", async () => {
+test("Card image house component", async () => {
   await act(async () => render(<Wrapper />));
 
-  const text = await screen.findByText(/FEATURED APARTEMENT/);
+  const img = await screen.findAllByAltText("cardImg");
+  expect(img.length).toEqual(2);
+});
+
+test("Card category house component", async () => {
+  await act(async () => render(<Wrapper />));
+
+  const text = await screen.findByText(/House/);
   expect(text).toBeInTheDocument();
 });
-
-test("Card apartement component", async () => {
-  await act(async () => render(<Wrapper />));
-
-  const card = await screen.findByTestId("cardApartment");
-  expect(card).toBeInTheDocument();
-});
-
 test("Card name apartement component", async () => {
   await act(async () => render(<Wrapper />));
 
@@ -138,33 +110,13 @@ test("Card name apartement component", async () => {
 test("Card price apartement component", async () => {
   await act(async () => render(<Wrapper />));
 
-  const text = await screen.findByText(/Rp 999.999.999/);
-  expect(text).toBeInTheDocument();
-});
-test("Title list card house", async () => {
-  await act(async () => render(<Wrapper />));
-
-  const text = await screen.findByText(/LATEST ARRIVALS/);
-  expect(text).toBeInTheDocument();
-});
-
-test("Card house component", async () => {
-  await act(async () => render(<Wrapper />));
-
-  const text = await screen.findByTestId("cardHouse");
-  expect(text).toBeInTheDocument();
-});
-
-test("Card name house component", async () => {
-  await act(async () => render(<Wrapper />));
-
-  const text = await screen.findByText(/rumah/);
-  expect(text).toBeInTheDocument();
-});
-
-test("Card price house component", async () => {
-  await act(async () => render(<Wrapper />));
-
   const text = await screen.findByText(/Rp 1.999.999.999/);
+  expect(text).toBeInTheDocument();
+});
+
+test("Card category apartement component", async () => {
+  await act(async () => render(<Wrapper />));
+
+  const text = await screen.findByText(/Apartement/);
   expect(text).toBeInTheDocument();
 });

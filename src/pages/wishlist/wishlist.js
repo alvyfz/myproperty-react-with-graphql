@@ -28,7 +28,7 @@ import { parseCookies } from "nookies";
 //     }
 //   }
 // `;
-const QUERY_LAZY = gql`
+export const QUERY_LAZY = gql`
   query MyQuery($id_user: Int!) {
     wishlists(where: { user_id: { _eq: $id_user } }) {
       id
@@ -136,7 +136,7 @@ function Wishlist() {
           textAlign: "center",
         }}
       >
-        <div style={{ paddingTop: "60px" }}>
+        <div style={{ paddingTop: "60px" }} data-testid="title">
           <h2>WISHLIST</h2>
           <h5>ACCOUNT / WISHLIST</h5>
         </div>
